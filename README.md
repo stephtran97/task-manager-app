@@ -13,4 +13,4 @@ This project aims to:
 1. Target at a specific product: clone **Jira** kanban feature.
 2. Enhance **JavaScript** and programming technical skills.
 
-## Project outline
+### Go to [Develop branch](https://github.com/stephtran97/task-manager-app/tree/dev) for code.
