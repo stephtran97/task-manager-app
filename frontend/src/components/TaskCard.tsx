@@ -6,6 +6,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import Tooltip from './Tooltip';
 import * as Icons from '../assets/icons';
 import PopOverContentWrapper from './PopOverContentWrapper';
+import ReactTextareaAutosize from 'react-textarea-autosize';
+import { useAppSelector } from '../hooks/hooks';
+import { projectSelector } from '../redux/slices/project.slice';
 
 export enum ETaskStatus {
   todo = 'To Do',
@@ -20,7 +23,7 @@ interface ITaskCardProps {
   description?: string;
   status: ETaskStatus;
   dueDate?: number;
-  assigneeId?: string | string[] | undefined; // TODO: convert to user model later
+  assigneeId?: string[] | undefined; // TODO: convert to user model later
   createBy?: string; // TODO: convert to user model later
   createAt?: number;
   updatedAt?: number;
@@ -45,7 +48,7 @@ const TaskCardPopOverContent = (): JSX.Element => {
         placement="right-start"
       >
         <div
-          className={`${style} flex justify-between hover:bg-[#deebff] hover:text-[#0c66e4] border-b-[3px] border-b-[#ebecf0]`}
+          className={`${style} flex justify-between hover:!bg-[#deebff] hover:text-[#0c66e4] border-b-[3px] border-b-[#ebecf0]`}
         >
           Move to
           <span>
@@ -68,11 +71,52 @@ const TaskCardPopOverContent = (): JSX.Element => {
   );
 };
 
+const AssigneeGroupPopOverContent = (props: {
+  assignees: string[] | undefined;
+}) => {
+  return (
+    <PopOverContentWrapper className="w-[300px] pb-[6px] ">
+      <div className="px-[8px] pt-[8px] pb-[4px]">
+        {props.assignees &&
+          props.assignees?.length > 0 &&
+          props.assignees?.map((item, index) => {
+            return (
+              <button
+                className="w-full group/assignee flex items-center justify-between h-[40px] py-[6px] pe-[6px] border-[1px] border-gray grounded-[6px]"
+                key={index}
+                autoFocus
+              >
+                <div>{item}</div>
+                <div className="group-hover/assignee:visible invisible hover:text-[red]">
+                  <Icons.ExitIcon />
+                </div>
+              </button>
+            );
+          })}
+      </div>
+      {['Automatic', 'Unassigned'].map((item, index) => {
+        return (
+          <div
+            className="flex items-center gap-[10px] h-[40px] p-[8px] hover:bg-[var(--color-hover-secondary)] hover:shadow-[inset_2px_0px_0px_0px_#0c66e4]"
+            key={index}
+          >
+            <span className="flex items-center justify-center text-white bg-gray-500 size-[24px] rounded-full">
+              <Icons.DefaultUserIcon />
+            </span>
+            {item}
+          </div>
+        );
+      })}
+    </PopOverContentWrapper>
+  );
+};
+
 const TaskCard = (props: ITaskCardProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [taskTitle, setTaskTitle] = useState(props.title);
   const [inputValue, setInputValue] = useState(taskTitle);
 
+  const { members } = useAppSelector(projectSelector);
   const navigate = useNavigate();
 
   const acceptEditContent = () => {
@@ -83,56 +127,105 @@ const TaskCard = (props: ITaskCardProps) => {
     setInputValue(taskTitle);
     setIsEditing(false);
   };
+  const assigneeGroup = (
+    <Popover
+      aria-labelledby="aria-popover"
+      content={<AssigneeGroupPopOverContent assignees={props.assigneeId} />}
+      arrow={false}
+      trigger="click"
+      placement="bottom"
+    >
+      <div className="flex -space-x-[12px]">
+        {props.assigneeId ? (
+          members &&
+          members
+            .filter((item) => props.assigneeId?.includes(item.userId))
+            .map((item, index) => {
+              return (
+                <Tooltip
+                  content={`Assignee: ${item.userName}`}
+                  placement="bottom"
+                  arrow={false}
+                  key={index}
+                >
+                  <img
+                    src={item.avatar}
+                    alt={item.userName}
+                    className="relative size-[32px] rounded-full object-cover hover:z-50 hover:ring-[2px] ring-white"
+                  />
+                </Tooltip>
+              );
+            })
+        ) : (
+          <Tooltip content="Unassigned" placement="bottom" arrow={false}>
+            <span className="flex items-center justify-center text-white bg-gray-500 size-[24px] rounded-full">
+              <Icons.DefaultUserIcon />
+            </span>
+          </Tooltip>
+        )}
+      </div>
+    </Popover>
+  );
 
   return (
     <button
       id={props.taskId}
-      className="text-left p-[12px] flex flex-col w-[270px] shadow-lg hover:bg-[var(--color-hover-secondary)] rounded-[3px] z-10 cursor-pointer focus:bg-[#deebff] focus-visible:outline-[#0c66f4] focus:outline-[#0c66f4]" // TODO: test w-270px
-      // TODO: issueLink
+      className="group text-left p-[12px] flex flex-col w-[258px] shadow-lg hover:bg-[var(--color-hover-secondary)] rounded-[3px] cursor-pointer focus:bg-[#deebff] focus-visible:outline-[#0c66f4] focus:outline-[#0c66f4]" // TODO: test w-270px
       onClick={() => {
         if (props.issueLink) navigate(props.issueLink);
       }}
     >
       {!isEditing ? (
-        <div className="w-full flex justify-between items-center">
-          <span className="hover:underline">
-            {taskTitle}
-            <span
-              className="size-[18px] inline-flex items-center hover:bg-[rgba(9,30,66,0.08)] rounded-[3px] p-[1px]"
-              onClick={() => setIsEditing(true)}
-            >
-              <Icons.EditIcon />
-            </span>
+        <div className="w-full flex justify-between items-start gap-[4px]">
+          <span className="min-h-[32px] hover:underline">
+            <Tooltip content={taskTitle} arrow={false} placement="bottom">
+              <span>{taskTitle}</span>
+              <span
+                className="invisible group-hover:visible inline-flex size-[18px] items-center hover:bg-[rgba(9,30,66,0.08)] rounded-[3px] p-[1px]"
+                onClick={() => setIsEditing(true)}
+              >
+                <Icons.EditIcon />
+              </span>
+            </Tooltip>
           </span>
           <Popover
             aria-labelledby="aria-popover"
             content={<TaskCardPopOverContent />}
             arrow={false}
             trigger="click"
-            className="z-50"
             placement="bottom-end"
           >
-            <span className="flex justify-center items-center size-[32px] rounded-[3px] hover:bg-white z-50">
+            <div className="invisible group-hover:visible flex justify-center items-center size-[32px] rounded-[3px] hover:bg-white">
               <span>
                 <Icons.DotsMenuIcon />
               </span>
-            </span>
+            </div>
           </Popover>
         </div>
       ) : (
         <div className="w-full overflow-auto h-auto">
-          <textarea
+          <ReactTextareaAutosize
             className="w-full p-[4px] resize-none h-auto"
             autoFocus
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
+            maxLength={255}
+            maxRows={11}
           />
         </div>
       )}
       <div className="w-full flex justify-between items-center mt-[4px]">
         <span className="flex items-center gap-[4px]">
-          <Icons.TaskTypeIcon />
-          <span>{props.issueKey}</span>
+          <Tooltip content="Task" arrow={false} placement="bottom">
+            <Icons.TaskTypeIcon />
+          </Tooltip>
+          <Tooltip content={props.issueKey} arrow={false} placement="bottom">
+            {props.status === ETaskStatus.done ? (
+              <span className="text-[12px] line-through">{props.issueKey}</span>
+            ) : (
+              <span className="text-[12px]">{props.issueKey}</span>
+            )}
+          </Tooltip>
         </span>
         {!isEditing ? (
           props.status === ETaskStatus.done ? (
@@ -149,82 +242,27 @@ const TaskCard = (props: ITaskCardProps) => {
                     arrow={false}
                     placement="bottom"
                   >
-                    <Link
-                      to="#"
-                      className="rounded-[3px] hover:bg-[#ebecf0] z-50"
-                    >
+                    <Link to="#" className="rounded-[3px] hover:bg-[#ebecf0]">
                       <Icons.CommitIcon />
                     </Link>
                   </Tooltip>
                 )}
               </div>
-              <div className="flex -space-x-[16px]">
-                {props.assigneeId ? (
-                  [
-                    'https://api.dicebear.com/8.x/adventurer/svg?seed=Jasper&scale=150',
-                    'https://api.dicebear.com/8.x/adventurer/svg?seed=Zoe&scale=150',
-                    'https://api.dicebear.com/8.x/adventurer/svg?seed=Mimi&scale=150',
-                    'https://api.dicebear.com/8.x/adventurer/svg?seed=Daisy&scale=150',
-                    'https://api.dicebear.com/8.x/adventurer/svg?seed=Shadow&scale=150'
-                  ].map((item, index) => {
-                    return (
-                      <Tooltip
-                        content={`Assignee: ${props.assigneeId}`}
-                        placement="bottom"
-                        arrow={false}
-                        key={index}
-                      >
-                        <img
-                          src={item}
-                          alt={item}
-                          className="size-[32px] rounded-full object-cover"
-                        />
-                      </Tooltip>
-                    );
-                  })
-                ) : (
-                  <Tooltip
-                    content="Unassigned"
-                    placement="bottom"
-                    arrow={false}
-                  >
-                    <span className="flex items-center justify-center text-white bg-gray-500 size-[24px] rounded-full">
-                      <Icons.DefaultUserIcon />
-                    </span>
-                  </Tooltip>
-                )}
-              </div>
+              {assigneeGroup}
             </div>
           ) : (
-            <div className="flex -space-x-[16px]">
-              {[
-                'https://api.dicebear.com/8.x/adventurer/svg?seed=Jasper&scale=150',
-                'https://api.dicebear.com/8.x/adventurer/svg?seed=Zoe&scale=150',
-                'https://api.dicebear.com/8.x/adventurer/svg?seed=Mimi&scale=150',
-                'https://api.dicebear.com/8.x/adventurer/svg?seed=Daisy&scale=150',
-                'https://api.dicebear.com/8.x/adventurer/svg?seed=Shadow&scale=150'
-              ].map((item, index) => {
-                return (
-                  <img
-                    key={index}
-                    src={item}
-                    alt={item}
-                    className="size-[32px] rounded-full object-cover"
-                  />
-                );
-              })}
-            </div>
+            assigneeGroup
           )
         ) : (
-          <div className="flex gap-[10px] z-50">
+          <div className="flex gap-[10px]">
             <div
-              className="size-[32px] border-[1px] p-[4px] shadow-xl bg-white hover:bg-[#ebecf0] z-50"
+              className="size-[32px] border-[1px] p-[4px] shadow-xl bg-white hover:bg-[#ebecf0]"
               onClick={acceptEditContent}
             >
               <Icons.TickIcon />
             </div>
             <div
-              className="size-[32px] border-[1px] p-[4px] shadow-xl bg-white hover:bg-[#ebecf0] z-50"
+              className="size-[32px] border-[1px] p-[4px] shadow-xl bg-white hover:bg-[#ebecf0]"
               onClick={cancelEditContent}
             >
               <Icons.ExitIcon />

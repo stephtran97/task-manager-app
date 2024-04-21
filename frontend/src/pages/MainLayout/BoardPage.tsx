@@ -24,7 +24,7 @@ const BoardPage = () => {
         description="123"
         status={ETaskStatus.done}
         dueDate={1713484800000}
-        assigneeId="1232"
+        assigneeId={['1', '2', '3']}
         createBy="1232"
         createAt={1713484800000}
         updatedAt={1713484800000}
