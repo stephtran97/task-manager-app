@@ -15,7 +15,7 @@ const PopOver = (props: IPopOverProps) => {
       arrow={false}
       trigger="click"
     >
-      <button className="flex justify-center items-center my-[0px] mx-[4px] hover:bg-[#dcdfe4] p-[4px] rounded-[3px] font-[500] text-[#6b778c] aria-expanded:text-[#0052CC] aria-expanded:bg-[#e9f2ff] aria-expanded:hover:bg-[#cce0ff]">
+      <button className="flex justify-center items-center my-[0px] mx-[4px] hover:bg-[var(--color-hover-secondary)] p-[4px] rounded-[3px] font-[500] text-[#6b778c] aria-expanded:text-[#0052CC] aria-expanded:bg-[#e9f2ff] aria-expanded:hover:bg-[var(--color-hover-primary)]">
         <span>{props.buttonTitle}</span>
         <span>{<Icons.ArrowDown />}</span>
       </button>

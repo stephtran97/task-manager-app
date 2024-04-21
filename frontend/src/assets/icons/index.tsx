@@ -53,6 +53,8 @@ export { default as SettingsIcon } from './SettingsIcon';
 export { default as ShareIcon } from './ShareIcon';
 export { default as Slack } from './Slack';
 export { default as StarredIcon } from './StarredIcon';
+export { default as TaskDoneIcon } from './TaskDoneIcon';
+export { default as TaskTypeIcon } from './TaskTypeIcon';
 export { default as TickIcon } from './TickIcon';
 export { default as TimelineIcon } from './TimelineIcon';
 export { default as UpIcon } from './UpIcon';
