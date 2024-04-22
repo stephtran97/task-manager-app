@@ -39,10 +39,30 @@ const TaskCardPopOverContent = (): JSX.Element => {
         aria-labelledby="aria-popover"
         content={
           <PopOverContentWrapper className="w-[200px] text-black flex flex-col border-[1px] overflow-hidden">
-            <div className={`${style}`}>Top of column</div>
-            <div className={`${style}`}>Bottom of column</div>
+            <div
+              className={`${style}`}
+              onClick={
+                () =>
+                  console.log(
+                    'Move to Top of Column (not shown button when in the top of Column)'
+                  ) // TODO: DropDrag - Implement with drop drag
+              }
+            >
+              Top of column
+            </div>
+            <div
+              className={`${style}`}
+              onClick={
+                () =>
+                  console.log(
+                    'Move to Bottom of Column (not shown button when in the bottom of Column)'
+                  ) // TODO: DropDrag - Implement with drop drag
+              }
+            >
+              Bottom of column
+            </div>
           </PopOverContentWrapper>
-        } // TODO: popover content
+        }
         arrow={false}
         trigger="hover"
         placement="right-start"
@@ -66,7 +86,12 @@ const TaskCardPopOverContent = (): JSX.Element => {
       <div className={`${style} border-b-[2px] border-b-[#ebecf0]`}>
         Link issue
       </div>
-      <div className={`${style}`}>Delete</div>
+      <div
+        className={`${style}`}
+        onClick={() => console.log('Delete Issue API')} // TODO: API - Implement Delete Issue
+      >
+        Delete
+      </div>
     </PopOverContentWrapper>
   );
 };
@@ -74,23 +99,41 @@ const TaskCardPopOverContent = (): JSX.Element => {
 const AssigneeGroupPopOverContent = (props: {
   assignees: string[] | undefined;
 }) => {
+  const { members } = useAppSelector(projectSelector);
+  const assigneesList = props.assignees
+    ? members.filter((item) => props.assignees?.includes(item.userId))
+    : [];
+
   return (
     <PopOverContentWrapper className="w-[300px] pb-[6px] ">
-      <div className="px-[8px] pt-[8px] pb-[4px]">
-        {props.assignees &&
-          props.assignees?.length > 0 &&
-          props.assignees?.map((item, index) => {
+      <div className="flex flex-col gap-[4px] px-[8px] pt-[8px] pb-[4px]">
+        {assigneesList?.length > 0 &&
+          assigneesList?.map((item) => {
             return (
-              <button
-                className="w-full group/assignee flex items-center justify-between h-[40px] py-[6px] pe-[6px] border-[1px] border-gray grounded-[6px]"
-                key={index}
+              <div
+                className="w-full group/assignee flex items-center justify-between h-[40px] py-[6px] ps-[4px] pe-[6px] border-[1px] border-gray grounded-[6px]"
+                key={item.userId}
                 autoFocus
               >
-                <div>{item}</div>
-                <div className="group-hover/assignee:visible invisible hover:text-[red]">
+                <div className="flex items-center gap-[10px]">
+                  <div>
+                    <img
+                      src={item.avatar}
+                      alt=""
+                      className="size-[20px] rounded-full"
+                    />
+                  </div>
+                  <div>{item.userName}</div>
+                </div>
+                <div
+                  className="group-hover/assignee:visible invisible hover:text-[red]"
+                  onClick={() =>
+                    console.log('Unassign user from assignees list')
+                  } // TODO: API - Bind Unassign user
+                >
                   <Icons.ExitIcon />
                 </div>
-              </button>
+              </div>
             );
           })}
       </div>
@@ -99,6 +142,7 @@ const AssigneeGroupPopOverContent = (props: {
           <div
             className="flex items-center gap-[10px] h-[40px] p-[8px] hover:bg-[var(--color-hover-secondary)] hover:shadow-[inset_2px_0px_0px_0px_#0c66e4]"
             key={index}
+            onClick={() => console.log('Automatic/Unassigned')} // TODO: API - Bind Automatic assign/ Unassign all
           >
             <span className="flex items-center justify-center text-white bg-gray-500 size-[24px] rounded-full">
               <Icons.DefaultUserIcon />
