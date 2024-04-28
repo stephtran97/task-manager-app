@@ -9,8 +9,10 @@ const MainLayout = () => {
   return (
     <>
       <Header />
-      <NavBar />
-      <Outlet />
+      <div className="flex">
+        <NavBar />
+        <Outlet />
+      </div>
     </>
   );
 };

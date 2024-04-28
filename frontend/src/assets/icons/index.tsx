@@ -33,6 +33,7 @@ export { default as ImportWorkIcon } from './ImportWorkIcon';
 export { default as IssuesIcon } from './IssuesIcon';
 export { default as JiraLogo } from './JiraLogo';
 export { default as JiraLogoWhite } from './JiraLogoWhite';
+export { default as JiraLogoWithText } from './JiraLogoWithText';
 export { default as JiraPremiumIcon } from './JiraPremiumIcon';
 export { default as JiraServiceManagement } from './JiraServiceManagement';
 export { default as JiraWorkManagementWhite } from './JiraWorkManagementWhite';
