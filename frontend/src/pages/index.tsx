@@ -1,4 +1,14 @@
 export { default as BoardPage } from './MainLayout/BoardPage';
 export { default as TimelinePage } from './MainLayout/TimelinePage';
+export { default as CalendarPage } from './MainLayout/CalendarPage';
+export { default as CodePage } from './MainLayout/CodePage';
+export { default as DeploymentPage } from './MainLayout/DeploymentPage';
+export { default as GoalsPage } from './MainLayout/GoalsPage';
+export { default as IssuesPage } from './MainLayout/IssuesPage';
+export { default as ListPage } from './MainLayout/ListPage';
+export { default as ProjectsPage } from './MainLayout/ProjectsPage';
+export { default as ReleasesPage } from './MainLayout/ReleasesPage';
+export { default as SecurityPage } from './MainLayout/SecurityPage';
+export { default as SettingsPage } from './MainLayout/TimelinePage';
 export { default as LoginPage } from './NonAuthLayout/LoginPage';
 export { default as ErrorPage } from './ErrorPage';

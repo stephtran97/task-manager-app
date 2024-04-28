@@ -10,7 +10,7 @@ const Header = () => {
     <header className="w-full h-[56px] px-[12px] flex items-center justify-between border-b-[#EBECF0] border-b-[1px]">
       {/* Navigations */}
 
-      <div className="flex items-center h-[32px]">
+      <div className="flex items-center h-full">
         <PopOver
           buttonTitle={<Icons.MenuIcon />}
           content={<>...</>}
@@ -18,7 +18,7 @@ const Header = () => {
           buttonClassName="rounded-full"
         />
         <Link
-          className="h-full hover:bg-[var(--color-hover-secondary)] p-[4px] rounded-[3px]"
+          className="h-[32px] hover:bg-[var(--color-hover-secondary)] p-[4px] rounded-[3px] me-[16px]"
           to="/"
         >
           <Icons.JiraLogoWithText />
@@ -31,14 +31,24 @@ const Header = () => {
           { title: 'Teams', content: <>...</> },
           { title: 'Plans', content: <>...</> },
           { title: 'Apps', content: <>...</> }
-        ].map((button, index) => (
-          <PopOver
-            key={index}
-            buttonTitle={button.title}
-            content={button.content}
-            arrow={true}
-          />
-        ))}
+        ].map((button, index) => {
+          const style =
+            button.title === 'Projects'
+              ? 'flex items-center h-full shadow-[inset_0px_-4px_0px_0px_#0c66e4]'
+              : 'flex items-center h-full';
+          return (
+            <div key={index} className={style}>
+              <PopOver
+                buttonTitle={button.title}
+                content={button.content}
+                arrow={true}
+                buttonClassName={
+                  button.title === 'Projects' ? 'text-[#0c66e4]' : ''
+                }
+              />
+            </div>
+          );
+        })}
         <button className="h-[32px] bg-[#0c66e4] text-white hover:bg-[#0052cce6] ms-[12px] me-[4px] px-[10px] rounded-[3px] font-[500]">
           Create
         </button>

@@ -9,12 +9,9 @@ import PopOverContentWrapper from './PopOverContentWrapper';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 import { useAppSelector } from '../hooks/hooks';
 import { projectSelector } from '../redux/slices/project.slice';
-
-export enum ETaskStatus {
-  todo = 'To Do',
-  inProgress = 'In Progress',
-  done = 'Done'
-}
+import { ETaskStatus } from '../utils/enum';
+import { ICommit } from '../models/types';
+import { convertTimeToDHMS, getCurrentTime } from '../utils/helper';
 
 interface ITaskCardProps {
   taskId: string;
@@ -28,7 +25,7 @@ interface ITaskCardProps {
   createAt?: number;
   updatedAt?: number;
   issueLink?: string;
-  relatedCommit?: string | string[] | undefined;
+  relatedCommit?: ICommit[] | undefined;
 }
 
 const TaskCardPopOverContent = (): JSX.Element => {
@@ -281,15 +278,49 @@ const TaskCard = (props: ITaskCardProps) => {
                   </span>
                 </Tooltip>
                 {props.relatedCommit && (
-                  <Tooltip
-                    content={props.relatedCommit}
+                  <Popover
+                    content={
+                      <PopOverContentWrapper>
+                        <div className="w-[320px] p-[16px] flex flex-col gap-[4px]">
+                          <div className="text-[12px]">COMMIT</div>
+                          <div className="text-[16px] text-[#0c66f4] font-[600] hover:underline">
+                            <Link to={props.relatedCommit[0].link}>
+                              {props.relatedCommit[0].commitHash}
+                            </Link>
+                          </div>
+                          <div>
+                            {`Last updated 
+                            ${convertTimeToDHMS(
+                              getCurrentTime() -
+                                props.relatedCommit[0].updatedAt
+                            )}
+                             ago`}
+                          </div>
+                          <div className="mt-[16px] border-t-[#091e4214] border-t-[2px]">
+                            <span className="inline-block mt-[9px] hover:underline">
+                              <div
+                                onClick={() =>
+                                  console.log('To development Modal')
+                                }
+                                className="text-[#0c66e4]"
+                              >
+                                {props.relatedCommit.length > 1
+                                  ? `+${props.relatedCommit.length - 1} more commits`
+                                  : 'View all development information'}
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </PopOverContentWrapper>
+                    }
+                    trigger="hover"
                     arrow={false}
-                    placement="bottom"
+                    placement="bottom-start"
                   >
                     <Link to="#" className="rounded-[3px] hover:bg-[#ebecf0]">
                       <Icons.CommitIcon />
                     </Link>
-                  </Tooltip>
+                  </Popover>
                 )}
               </div>
               {assigneeGroup}

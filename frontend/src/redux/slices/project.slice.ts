@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import { IUser } from '../../models/types';
 
 // TODO: Integrate with project info later
-const initialState = {
+const initialState: { members: IUser[] } = {
   members: [
     {
       userId: '1',
