@@ -10,7 +10,7 @@ const Header = () => {
     <header className="w-full h-[56px] px-[12px] flex items-center justify-between border-b-[#EBECF0] border-b-[1px]">
       {/* Navigations */}
 
-      <div className="flex items-center h-full">
+      <div className="flex items-center h-full gap-[8px]">
         <PopOver
           buttonTitle={<Icons.MenuIcon />}
           content={<>...</>}
