@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Tooltip as UITooltip } from 'flowbite-react';
+import { TooltipProps, Tooltip as UITooltip } from 'flowbite-react';
 
-const Tooltip = (props: any) => {
+const Tooltip = (props: TooltipProps) => {
   const { content, ...rest } = props;
   return (
     <UITooltip
