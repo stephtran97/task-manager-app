@@ -79,21 +79,24 @@ const NavBar = () => {
   const [isOpenOperationsNav, setIsOpenOperationsNav] = useState(true);
 
   return (
-    <nav className="min-w-[240px] h-[calc(100dvh_-_56px)] flex flex-col justify-between">
-      <div className="pt-[24px] pb-[8px] px-[8px] flex mx-[8px]">
+    <nav className="min-w-[240px] max-w-[450px] h-[calc(100dvh_-_56px)] flex flex-col justify-between">
+      <div className="pt-[24px] pb-[8px] px-[8px] flex mx-[8px] h-[85px]">
         <div className="flex gap-[12px] p-[8px]">
           <div className="">
+            {/* Replace with Project avatar or default avatar */}
             <Icons.ProjectAvatarSupport />
           </div>
           <div className="flex flex-col">
             <div className="text-[14px] font-[600] text-[#42526e]">
+              {/* TODO: Replace with Project name */}
               My Kanban Project
             </div>
+            {/* TODO: Replace with Project type */}
             <div className="text-[12px] text-[#626f86]">Software project</div>
           </div>
         </div>
       </div>
-      <div className="mx-[8px] mb-auto">
+      <div className="mx-[8px] mb-auto h-[calc(100dvh_-_56px_-85px_-80px)] overflow-y-auto">
         {/* Navigations */}
         <div className="py-[8px]">
           <div
@@ -261,7 +264,7 @@ const NavBar = () => {
           ))}
         </div>
       </div>
-      <div className="px-[8px] pt-[8px] pb-[16px] flex flex-col items-center text-[#44546f] text-[12px]">
+      <div className="px-[8px] pt-[8px] pb-[16px] flex flex-col items-center text-[#44546f] text-[12px] h-[80px]">
         <div>You're in a team-managed project</div>
         <div className="font-[600] m-[6px]">
           <button className="m-[6px] hover:underline">Learn more</button>

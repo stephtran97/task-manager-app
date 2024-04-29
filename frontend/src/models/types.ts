@@ -11,3 +11,14 @@ export interface ICommit {
   link: string;
   author?: string;
 }
+
+export interface IProject {
+  name: string;
+  type: string;
+  avatar: string;
+  key: string;
+  projectLead: IUser['userId'];
+  defaultAssignee: 'Unassigned';
+  boardName: string; // max 30 char length
+  members: IUser[];
+}

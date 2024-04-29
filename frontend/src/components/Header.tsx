@@ -43,7 +43,7 @@ const Header = () => {
                 content={button.content}
                 arrow={true}
                 buttonClassName={
-                  button.title === 'Projects' ? 'text-[#0c66e4]' : ''
+                  button.title === 'Projects' ? 'text-[#0052cc]' : ''
                 }
               />
             </div>

@@ -1,9 +1,3 @@
-export enum ETaskStatus {
-  todo = 'To Do',
-  inProgress = 'In Progress',
-  done = 'Done'
-}
-
 export enum EMilliseconds {
   minute = 60_000,
   hour = 3_600_000,

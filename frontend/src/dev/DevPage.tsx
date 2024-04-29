@@ -1,9 +1,9 @@
 import React from 'react';
 
 import PopOverContentWrapper from '../components/PopOverContentWrapper';
+import BreadCrumbs from '../components/BreadCrumbs';
 import TaskCard from '../components/TaskCard';
 import Tooltip from '../components/Tooltip';
-import { ETaskStatus } from '../utils/enum';
 import PopOver from '../components/PopOver';
 import * as Icons from '../assets/icons';
 
@@ -204,7 +204,7 @@ const DevPage = () => {
           />
           <TaskCard
             issueKey="TASK-1"
-            status={ETaskStatus.done}
+            status="Done"
             taskId="i1"
             title="Your task title goes here"
             assigneeId={['1', '2']}
@@ -215,11 +215,22 @@ const DevPage = () => {
             ]}
             description="Your task description goes here"
           />
+
           <Tooltip content="Your tooltip popover content goes here">
             <button className="bg-[#0c66f4] rounded-[3px] p-[4px] text-white">
               Your main content
             </button>
           </Tooltip>
+          <BreadCrumbs
+            breadCrumbsItems={[
+              { title: 'Projects', href: '/projects' },
+              { title: 'My Kanban Project', href: '/projects' },
+              { title: 'Child ' },
+              { title: 'Child ' },
+              { title: 'Child ' },
+              { title: 'Child ' }
+            ]}
+          />
         </div>
       </div>
       <div>

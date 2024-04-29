@@ -9,7 +9,6 @@ import PopOverContentWrapper from './PopOverContentWrapper';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 import { useAppSelector } from '../hooks/hooks';
 import { projectSelector } from '../redux/slices/project.slice';
-import { ETaskStatus } from '../utils/enum';
 import { ICommit } from '../models/types';
 import { convertTimeToDHMS, getCurrentTime } from '../utils/helper';
 
@@ -18,7 +17,7 @@ interface ITaskCardProps {
   issueKey: string;
   title: string;
   description?: string;
-  status: ETaskStatus;
+  status: 'Done' | 'In Progress' | 'To Do';
   dueDate?: number;
   assigneeId?: string[] | undefined; // TODO: convert to user model later
   createBy?: string; // TODO: convert to user model later
@@ -211,7 +210,7 @@ const TaskCard = (props: ITaskCardProps) => {
   return (
     <button
       id={props.taskId}
-      className="group text-left p-[12px] flex flex-col w-[258px] shadow-lg hover:bg-[var(--color-hover-secondary)] rounded-[3px] cursor-pointer focus:bg-[#deebff] focus-visible:outline-[#0c66f4] focus:outline-[#0c66f4]" // TODO: test w-270px
+      className="group text-left p-[12px] flex flex-col w-[258px] shadow-md hover:bg-[var(--color-hover-secondary)] rounded-[3px] cursor-pointer focus:bg-[#deebff] focus-visible:outline-[#0c66f4] focus:outline-[#0c66f4] border-[#dfe0e1] border-[1px]" // TODO: test w-270px
       onClick={() => {
         if (props.issueLink) navigate(props.issueLink);
       }}
@@ -261,7 +260,7 @@ const TaskCard = (props: ITaskCardProps) => {
             <Icons.TaskTypeIcon />
           </Tooltip>
           <Tooltip content={props.issueKey} arrow={false} placement="bottom">
-            {props.status === ETaskStatus.done ? (
+            {props.status === 'Done' ? (
               <span className="text-[12px] line-through">{props.issueKey}</span>
             ) : (
               <span className="text-[12px]">{props.issueKey}</span>
@@ -269,7 +268,7 @@ const TaskCard = (props: ITaskCardProps) => {
           </Tooltip>
         </span>
         {!isEditing ? (
-          props.status === ETaskStatus.done ? (
+          props.status === 'Done' ? (
             <div className="flex">
               <div className="flex items-center">
                 <Tooltip content="Done" arrow={false} placement="bottom">
