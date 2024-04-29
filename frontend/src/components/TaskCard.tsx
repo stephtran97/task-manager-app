@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { Popover } from 'flowbite-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Tooltip from './Tooltip';
@@ -11,6 +10,7 @@ import { useAppSelector } from '../hooks/hooks';
 import { projectSelector } from '../redux/slices/project.slice';
 import { ICommit } from '../models/types';
 import { convertTimeToDHMS, getCurrentTime } from '../utils/helper';
+import PopOver from './PopOver';
 
 interface ITaskCardProps {
   taskId: string;
@@ -31,8 +31,7 @@ const TaskCardPopOverContent = (): JSX.Element => {
   const style = 'w-full cursor-default px-[20px] py-[8px] hover:bg-[#f3f5f7]';
   return (
     <PopOverContentWrapper className="w-[200px] text-black flex flex-col border-[1px] overflow-hidden text-start">
-      <Popover
-        aria-labelledby="aria-popover"
+      <PopOver
         content={
           <PopOverContentWrapper className="w-[200px] text-black flex flex-col border-[1px] overflow-hidden">
             <div
@@ -62,16 +61,17 @@ const TaskCardPopOverContent = (): JSX.Element => {
         arrow={false}
         trigger="hover"
         placement="right-start"
-      >
-        <div
-          className={`${style} flex justify-between hover:!bg-[#deebff] hover:text-[#0c66e4] border-b-[3px] border-b-[#ebecf0]`}
-        >
-          Move to
-          <span>
-            <Icons.ArrowRight />
-          </span>
-        </div>
-      </Popover>
+        buttonContent={
+          <div
+            className={`${style} flex justify-between hover:!bg-[#deebff] hover:text-[#0c66e4] border-b-[3px] border-b-[#ebecf0]`}
+          >
+            Move to
+            <span>
+              <Icons.ArrowRight />
+            </span>
+          </div>
+        }
+      />
 
       <div className={`${style}`}>Copy issue link</div>
       <div className={`${style} border-b-[2px] border-b-[#ebecf0]`}>
@@ -101,7 +101,7 @@ const AssigneeGroupPopOverContent = (props: {
     : [];
 
   return (
-    <PopOverContentWrapper className="w-[300px] pb-[6px] ">
+    <PopOverContentWrapper className="w-[300px] pb-[6px]">
       <div className="flex flex-col gap-[4px] px-[8px] pt-[8px] pb-[4px]">
         {assigneesList?.length > 0 &&
           assigneesList?.map((item) => {
@@ -168,43 +168,43 @@ const TaskCard = (props: ITaskCardProps) => {
     setIsEditing(false);
   };
   const assigneeGroup = (
-    <Popover
-      aria-labelledby="aria-popover"
+    <PopOver
       content={<AssigneeGroupPopOverContent assignees={props.assigneeId} />}
       arrow={false}
       trigger="click"
       placement="bottom"
-    >
-      <div className="flex -space-x-[12px]">
-        {props.assigneeId ? (
-          members &&
-          members
-            .filter((item) => props.assigneeId?.includes(item.userId))
-            .map((item, index) => {
-              return (
-                <Tooltip
-                  content={`Assignee: ${item.userName}`}
-                  placement="bottom"
-                  arrow={false}
-                  key={index}
-                >
-                  <img
-                    src={item.avatar}
-                    alt={item.userName}
-                    className="relative size-[32px] rounded-full object-cover hover:z-50 hover:ring-[2px] ring-white"
-                  />
-                </Tooltip>
-              );
-            })
-        ) : (
-          <Tooltip content="Unassigned" placement="bottom" arrow={false}>
-            <span className="flex items-center justify-center text-white bg-gray-500 size-[24px] rounded-full">
-              <Icons.DefaultUserIcon />
-            </span>
-          </Tooltip>
-        )}
-      </div>
-    </Popover>
+      buttonContent={
+        <div className="flex -space-x-[12px]">
+          {props.assigneeId ? (
+            members &&
+            members
+              .filter((item) => props.assigneeId?.includes(item.userId))
+              .map((item, index) => {
+                return (
+                  <Tooltip
+                    content={`Assignee: ${item.userName}`}
+                    placement="bottom"
+                    arrow={false}
+                    key={index}
+                  >
+                    <img
+                      src={item.avatar}
+                      alt={item.userName}
+                      className="relative size-[32px] rounded-full object-cover hover:z-2 hover:ring-[2px] ring-white"
+                    />
+                  </Tooltip>
+                );
+              })
+          ) : (
+            <Tooltip content="Unassigned" placement="bottom" arrow={false}>
+              <span className="flex items-center justify-center text-white bg-gray-500 size-[24px] rounded-full">
+                <Icons.DefaultUserIcon />
+              </span>
+            </Tooltip>
+          )}
+        </div>
+      }
+    />
   );
 
   return (
@@ -228,19 +228,19 @@ const TaskCard = (props: ITaskCardProps) => {
               </span>
             </Tooltip>
           </span>
-          <Popover
-            aria-labelledby="aria-popover"
+          <PopOver
             content={<TaskCardPopOverContent />}
             arrow={false}
             trigger="click"
             placement="bottom-end"
-          >
-            <div className="invisible group-hover:visible flex justify-center items-center size-[32px] rounded-[3px] hover:bg-white">
-              <span>
-                <Icons.DotsMenuIcon />
-              </span>
-            </div>
-          </Popover>
+            buttonContent={
+              <div className="invisible group-hover:visible flex justify-center items-center size-[32px] rounded-[3px] hover:bg-white">
+                <span>
+                  <Icons.DotsMenuIcon />
+                </span>
+              </div>
+            }
+          />
         </div>
       ) : (
         <div className="w-full overflow-auto h-auto">
@@ -277,7 +277,7 @@ const TaskCard = (props: ITaskCardProps) => {
                   </span>
                 </Tooltip>
                 {props.relatedCommit && (
-                  <Popover
+                  <PopOver
                     content={
                       <PopOverContentWrapper>
                         <div className="w-[320px] p-[16px] flex flex-col gap-[4px]">
@@ -315,11 +315,12 @@ const TaskCard = (props: ITaskCardProps) => {
                     trigger="hover"
                     arrow={false}
                     placement="bottom-start"
-                  >
-                    <Link to="#" className="rounded-[3px] hover:bg-[#ebecf0]">
-                      <Icons.CommitIcon />
-                    </Link>
-                  </Popover>
+                    buttonContent={
+                      <Link to="#" className="rounded-[3px] hover:bg-[#ebecf0]">
+                        <Icons.CommitIcon />
+                      </Link>
+                    }
+                  />
                 )}
               </div>
               {assigneeGroup}

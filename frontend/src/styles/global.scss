@@ -2,7 +2,11 @@
   --color-hover-primary: #cce0ff;
   --color-hover-secondary: #dcdfe4;
 }
-
+body {
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+}
 * {
   margin: 0;
   padding: 0;
@@ -17,50 +21,54 @@ svg {
 // Page main section
 .page-main {
   padding-left: 40px;
-  padding-right: 24px;
   width: 100%;
   height: calc(100dvh - 56px);
-  // overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   .page-main--header {
+    padding-right: 24px;
     margin-top: 24px;
-    width: 100%;
     height: 184px;
   }
   .page-main--content {
-    width: 100%;
-    max-width: 920px;
-    display: flex;
-    gap: 12px;
     height: calc(100dvh - 56px - 184px - 24px);
-    overflow-y: scroll;
+    width: 100%;
+    min-width: 0;
+    overflow: auto;
 
-    .task-column {
-      width: 270px;
-      flex-shrink: 0;
-      background-color: #f7f8f9;
-      .task-column--header {
-        width: 100%;
-        font-size: 12px;
-        color: #626f86;
-        font-weight: 600;
+    .page-main--container {
+      width: 884px; // 270(of column)*3 + 12(of gap)*3 + 38(of create column button)
+      display: flex;
 
-        padding-top: 16px;
-        padding-bottom: 16px;
-        padding-left: 8px;
-        padding-right: 8px;
-
-        position: sticky;
-        top: 0px;
+      gap: 12px;
+      .task-column {
+        width: 270px;
         background-color: #f7f8f9;
-        z-index: 100;
-      }
-      .task-column--content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        overflow: auto;
+        .task-column--header {
+          width: 100%;
+          font-size: 12px;
+          color: #626f86;
+          font-weight: 600;
+
+          padding-top: 16px;
+          padding-bottom: 16px;
+          padding-left: 8px;
+          padding-right: 8px;
+
+          position: sticky;
+          top: 0px;
+          background-color: #f7f8f9;
+          z-index: 10;
+        }
+        .task-column--content {
+          background-color: #f7f8f9;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+          min-height: calc(100dvh - 56px - 184px - 24px - 50px);
+        }
       }
     }
   }

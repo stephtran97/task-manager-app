@@ -11,9 +11,16 @@ interface IPopOverProps extends PopoverProps {
 }
 
 const PopOver = (props: IPopOverProps) => {
-  const { content, arrow, ...rest } = props;
-  const buttonClass = props.buttonClassName
-    ? `flex justify-center items-center my-[0px] hover:bg-[var(--color-hover-secondary)] p-[4px] rounded-[3px] font-[500] text-[#6b778c] aria-expanded:text-[#0052CC] aria-expanded:bg-[#e9f2ff] aria-expanded:hover:bg-[var(--color-hover-primary)] ${props.buttonClassName}`
+  const {
+    content,
+    arrow,
+    buttonTitle,
+    buttonClassName,
+    buttonContent,
+    ...rest
+  } = props;
+  const buttonClass = buttonClassName
+    ? `flex justify-center items-center my-[0px] hover:bg-[var(--color-hover-secondary)] p-[4px] rounded-[3px] font-[500] text-[#6b778c] aria-expanded:text-[#0052CC] aria-expanded:bg-[#e9f2ff] aria-expanded:hover:bg-[var(--color-hover-primary)] ${buttonClassName}`
     : 'flex justify-center items-center my-[0px] hover:bg-[var(--color-hover-secondary)] p-[4px] rounded-[3px] font-[500] text-[#6b778c] aria-expanded:text-[#0052CC] aria-expanded:bg-[#e9f2ff] aria-expanded:hover:bg-[var(--color-hover-primary)]';
 
   return (
@@ -24,17 +31,17 @@ const PopOver = (props: IPopOverProps) => {
       trigger="click"
       {...rest}
     >
-      {!props.buttonContent ? (
+      {!buttonContent ? (
         <button className={buttonClass}>
-          <span>{props.buttonTitle}</span>
-          {props.arrow && (
+          <span>{buttonTitle}</span>
+          {arrow && (
             <span className="inline-block w-[12px] -translate-x-1">
               {<Icons.ArrowDown />}
             </span>
           )}
         </button>
       ) : (
-        <div>{props.buttonContent}</div>
+        <div>{buttonContent}</div>
       )}
     </Popover>
   );

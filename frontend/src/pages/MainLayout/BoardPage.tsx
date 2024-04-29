@@ -130,13 +130,13 @@ const BoardPage = () => {
                       <img
                         src={mem.avatar}
                         alt=""
-                        className="box-content size-[32px] object-cover rounded-full z-40 hover:z-50 border-l-[2px] border-r-[2px] border-[white]"
+                        className="box-content size-[32px] object-cover rounded-full hover:z-[3] border-l-[2px] border-r-[2px] border-[white]"
                       />
                     </button>
                   </Tooltip>
                 ))}
                 <Tooltip content="Unassigned" arrow={false} placement="bottom">
-                  <button className="flex justify-center items-center size-[32px] rounded-full bg-[#626f86] text-white hover:z-50 border-l-[3px]">
+                  <button className="flex justify-center items-center size-[32px] rounded-full bg-[#626f86] text-white hover:z-[3] border-l-[3px]">
                     <span className="scale-125">
                       <Icons.DefaultUserIcon />
                     </span>
@@ -175,74 +175,294 @@ const BoardPage = () => {
         </div>
       </div>
       <div className="page-main--content">
-        <div className="task-column" id="to-do-column">
-          <div className="task-column--header">TO DO</div>
-          <div className="task-column--content">
-            <TaskCard
-              issueKey="TASK-1"
-              status={'Done'}
-              taskId="i1"
-              title="Your task title goes here"
-              assigneeId={['1', '2']}
-              relatedCommit={[
-                {
-                  commitHash: '#easdf1234',
-                  updatedAt: 1714000000000,
-                  link: '#'
-                },
-                {
-                  commitHash: '#easdf1235',
-                  updatedAt: 1714334487630,
-                  link: '#'
-                },
-                {
-                  commitHash: '#easdf1236',
-                  updatedAt: 1714334400000,
-                  link: '#'
-                }
-              ]}
-              description="Your task description goes here"
-            />
-            <TaskCard
-              issueKey="TASK-1"
-              status={'Done'}
-              taskId="i1"
-              title="Your task title goes here"
-              assigneeId={['1', '2']}
-              relatedCommit={[
-                {
-                  commitHash: '#easdf1234',
-                  updatedAt: 1714000000000,
-                  link: '#'
-                },
-                {
-                  commitHash: '#easdf1235',
-                  updatedAt: 1714334487630,
-                  link: '#'
-                },
-                {
-                  commitHash: '#easdf1236',
-                  updatedAt: 1714334400000,
-                  link: '#'
-                }
-              ]}
-              description="Your task description goes here"
-            />
+        <div className="page-main--container">
+          <div className="task-column" id="to-do-column">
+            <div className="task-column--header">TO DO</div>
+            <div className="task-column--content">
+              {/* Task cards */}
+              <TaskCard
+                issueKey="TASK-1"
+                status={'Done'}
+                taskId="i1"
+                title="Your task title goes here"
+                assigneeId={['1', '2']}
+                relatedCommit={[
+                  {
+                    commitHash: '#easdf1234',
+                    updatedAt: 1714000000000,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1235',
+                    updatedAt: 1714334487630,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1236',
+                    updatedAt: 1714334400000,
+                    link: '#'
+                  }
+                ]}
+                description="Your task description goes here"
+              />
+              <div className="w-full px-[6px]">
+                <button className="w-full h-[36px] flex items-center gap-[4px] px-[10px] rounded-[3px] hover:bg-[#e9ebee]">
+                  <span>
+                    <Icons.PlusIcon />
+                  </span>
+                  <span className="font-[500]">Create issue</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="task-column group/column" id="in-progress-column">
+            <div className="task-column--header">IN PROGRESS</div>
+            <div className="task-column--content">
+              <TaskCard
+                issueKey="TASK-1"
+                status={'In Progress'}
+                taskId="i1"
+                title="Your task title goes here"
+                assigneeId={['1', '2']}
+                relatedCommit={[
+                  {
+                    commitHash: '#easdf1234',
+                    updatedAt: 1714000000000,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1235',
+                    updatedAt: 1714334487630,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1236',
+                    updatedAt: 1714334400000,
+                    link: '#'
+                  }
+                ]}
+                description="Your task description goes here"
+              />
+              <TaskCard
+                issueKey="TASK-1"
+                status={'In Progress'}
+                taskId="i1"
+                title="Your task title goes here"
+                assigneeId={['1', '2']}
+                relatedCommit={[
+                  {
+                    commitHash: '#easdf1234',
+                    updatedAt: 1714000000000,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1235',
+                    updatedAt: 1714334487630,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1236',
+                    updatedAt: 1714334400000,
+                    link: '#'
+                  }
+                ]}
+                description="Your task description goes here"
+              />
+              <TaskCard
+                issueKey="TASK-1"
+                status={'In Progress'}
+                taskId="i1"
+                title="Your task title goes here"
+                assigneeId={['1', '2']}
+                relatedCommit={[
+                  {
+                    commitHash: '#easdf1234',
+                    updatedAt: 1714000000000,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1235',
+                    updatedAt: 1714334487630,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1236',
+                    updatedAt: 1714334400000,
+                    link: '#'
+                  }
+                ]}
+                description="Your task description goes here"
+              />
+              <TaskCard
+                issueKey="TASK-1"
+                status={'In Progress'}
+                taskId="i1"
+                title="Your task title goes here"
+                assigneeId={['1', '2']}
+                relatedCommit={[
+                  {
+                    commitHash: '#easdf1234',
+                    updatedAt: 1714000000000,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1235',
+                    updatedAt: 1714334487630,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1236',
+                    updatedAt: 1714334400000,
+                    link: '#'
+                  }
+                ]}
+                description="Your task description goes here"
+              />
+              <TaskCard
+                issueKey="TASK-1"
+                status={'In Progress'}
+                taskId="i1"
+                title="Your task title goes here"
+                assigneeId={['1', '2']}
+                relatedCommit={[
+                  {
+                    commitHash: '#easdf1234',
+                    updatedAt: 1714000000000,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1235',
+                    updatedAt: 1714334487630,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1236',
+                    updatedAt: 1714334400000,
+                    link: '#'
+                  }
+                ]}
+                description="Your task description goes here"
+              />
+              <TaskCard
+                issueKey="TASK-1"
+                status={'In Progress'}
+                taskId="i1"
+                title="Your task title goes here"
+                assigneeId={['1', '2']}
+                relatedCommit={[
+                  {
+                    commitHash: '#easdf1234',
+                    updatedAt: 1714000000000,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1235',
+                    updatedAt: 1714334487630,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1236',
+                    updatedAt: 1714334400000,
+                    link: '#'
+                  }
+                ]}
+                description="Your task description goes here"
+              />
+              <TaskCard
+                issueKey="TASK-1"
+                status={'In Progress'}
+                taskId="i1"
+                title="Your task title goes here"
+                assigneeId={['1', '2']}
+                relatedCommit={[
+                  {
+                    commitHash: '#easdf1234',
+                    updatedAt: 1714000000000,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1235',
+                    updatedAt: 1714334487630,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1236',
+                    updatedAt: 1714334400000,
+                    link: '#'
+                  }
+                ]}
+                description="Your task description goes here"
+              />
+              <TaskCard
+                issueKey="TASK-1"
+                status={'In Progress'}
+                taskId="i1"
+                title="Your task title goes here"
+                assigneeId={['1', '2']}
+                relatedCommit={[
+                  {
+                    commitHash: '#easdf1234',
+                    updatedAt: 1714000000000,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1235',
+                    updatedAt: 1714334487630,
+                    link: '#'
+                  },
+                  {
+                    commitHash: '#easdf1236',
+                    updatedAt: 1714334400000,
+                    link: '#'
+                  }
+                ]}
+                description="Your task description goes here"
+              />
+              <div className="w-full px-[6px] invisible group-hover/column:visible">
+                <button className="w-full h-[36px] flex items-center gap-[4px] px-[10px] rounded-[3px] hover:bg-[#e9ebee]">
+                  <span>
+                    <Icons.PlusIcon />
+                  </span>
+                  <span className="font-[500]">Create issue</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="task-column group/column" id="done-column">
+            <div className="task-column--header">DONE</div>
+            <div className="task-column--content">
+              <div className="w-full px-[6px] invisible group-hover/column:visible">
+                <button className="w-full h-[36px] flex items-center gap-[4px] px-[10px] rounded-[3px] hover:bg-[#e9ebee]">
+                  <span>
+                    <Icons.PlusIcon />
+                  </span>
+                  <span className="font-[500]">Create issue</span>
+                </button>
+              </div>
+              <Tooltip
+                content="Done issues cleared from the board can be viewed here."
+                arrow={false}
+                placement="bottom"
+              >
+                <button className="h-[24px] flex items-center gap-[4px] px-[10px] rounded-[3px] hover:bg-[#e9ebee]">
+                  <span>
+                    <Icons.SearchIcon />
+                  </span>
+                  <span className="font-[500]">See all done issues</span>
+                </button>
+              </Tooltip>
+            </div>
+          </div>
+          <div>
+            <Tooltip content="Create column" arrow={false} placement="left">
+              <button className="flex justify-center items-center size-[38px] rounded-[3px] bg-[#f7f8f9] hover:bg-[#091e4214]">
+                <span className="">
+                  <Icons.PlusIcon />
+                </span>
+              </button>
+            </Tooltip>
           </div>
         </div>
-        <div className="task-column" id="in-progress-column">
-          <div className="task-column--header">IN PROGRESS</div>
-        </div>
-        <div className="task-column" id="done-column">
-          <div className="task-column--header">DONE</div>
-        </div>
-        <Tooltip content="Create column" arrow={false} placement="left">
-          <button className="flex justify-center items-center size-[38px] rounded-[3px] bg-[#f7f8f9] hover:bg-[#091e4214]">
-            <span className="">
-              <Icons.PlusIcon />
-            </span>
-          </button>
-        </Tooltip>
       </div>
     </main>
   );
