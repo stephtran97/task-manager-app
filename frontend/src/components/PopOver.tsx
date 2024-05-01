@@ -5,15 +5,17 @@ import * as Icons from '../assets/icons';
 interface IPopOverProps extends PopoverProps {
   buttonTitle?: string | JSX.Element;
   content: JSX.Element;
-  arrow: boolean;
+  arrow?: boolean;
   buttonClassName?: string;
   buttonContent?: JSX.Element;
+  buttonArrow?: boolean;
 }
 
 const PopOver = (props: IPopOverProps) => {
   const {
     content,
     arrow,
+    buttonArrow,
     buttonTitle,
     buttonClassName,
     buttonContent,
@@ -27,17 +29,23 @@ const PopOver = (props: IPopOverProps) => {
     <Popover
       aria-labelledby="aria-popover"
       content={content}
-      arrow={arrow}
+      arrow={arrow === undefined ? false : arrow}
       trigger="click"
       {...rest}
     >
       {!buttonContent ? (
         <button className={buttonClass}>
           <span>{buttonTitle}</span>
-          {arrow && (
+          {buttonArrow === undefined ? (
             <span className="inline-block w-[12px] -translate-x-1">
               {<Icons.ArrowDown />}
             </span>
+          ) : (
+            buttonArrow && (
+              <span className="inline-block w-[12px] -translate-x-1">
+                {<Icons.ArrowDown />}
+              </span>
+            )
           )}
         </button>
       ) : (

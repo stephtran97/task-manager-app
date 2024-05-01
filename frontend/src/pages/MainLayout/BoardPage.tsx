@@ -80,7 +80,6 @@ const BoardPage = () => {
               <Tooltip content={button.tooltipContent} arrow={false} key={i}>
                 {button.popOverContent ? (
                   <PopOver
-                    arrow={false}
                     content={button.popOverContent}
                     buttonContent={
                       <div className="flex items-center justify-center size-[32px] rounded-[3px] hover:bg-[var(--color-hover-secondary)] cursor-pointer fill-white text-[#42526e] hover:text-[#626f86]">
@@ -99,7 +98,7 @@ const BoardPage = () => {
               </Tooltip>
             ))}
             <PopOver
-              arrow={false}
+              buttonArrow={false}
               content={<>...</>}
               buttonTitle={<Icons.DotsMenuIcon />}
               buttonClassName="bg-[#091e4214]"
@@ -160,13 +159,13 @@ const BoardPage = () => {
               buttonClassName="!text-[#172b4d] bg-[#091e4214] gap-[10px] px-[15px]"
             />
             <PopOver
-              arrow={false}
+              buttonArrow={false}
               buttonTitle={<Icons.BoardInsightsIcon />}
               content={<>...</>}
               buttonClassName="!text-[#172b4d] bg-[#091e4214]"
             />
             <PopOver
-              arrow={false}
+              buttonArrow={false}
               buttonTitle={<Icons.ViewSettingsIcon />}
               content={<>...</>}
               buttonClassName="!text-[#172b4d] bg-[#091e4214]"
@@ -185,7 +184,7 @@ const BoardPage = () => {
                 status={'Done'}
                 taskId="i1"
                 title="Your task title goes here"
-                assigneeId={['1', '2']}
+                assigneeId={['uid1', 'uid2']}
                 relatedCommit={[
                   {
                     commitHash: '#easdf1234',
@@ -223,182 +222,7 @@ const BoardPage = () => {
                 status={'In Progress'}
                 taskId="i1"
                 title="Your task title goes here"
-                assigneeId={['1', '2']}
-                relatedCommit={[
-                  {
-                    commitHash: '#easdf1234',
-                    updatedAt: 1714000000000,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1235',
-                    updatedAt: 1714334487630,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1236',
-                    updatedAt: 1714334400000,
-                    link: '#'
-                  }
-                ]}
-                description="Your task description goes here"
-              />
-              <TaskCard
-                issueKey="TASK-1"
-                status={'In Progress'}
-                taskId="i1"
-                title="Your task title goes here"
-                assigneeId={['1', '2']}
-                relatedCommit={[
-                  {
-                    commitHash: '#easdf1234',
-                    updatedAt: 1714000000000,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1235',
-                    updatedAt: 1714334487630,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1236',
-                    updatedAt: 1714334400000,
-                    link: '#'
-                  }
-                ]}
-                description="Your task description goes here"
-              />
-              <TaskCard
-                issueKey="TASK-1"
-                status={'In Progress'}
-                taskId="i1"
-                title="Your task title goes here"
-                assigneeId={['1', '2']}
-                relatedCommit={[
-                  {
-                    commitHash: '#easdf1234',
-                    updatedAt: 1714000000000,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1235',
-                    updatedAt: 1714334487630,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1236',
-                    updatedAt: 1714334400000,
-                    link: '#'
-                  }
-                ]}
-                description="Your task description goes here"
-              />
-              <TaskCard
-                issueKey="TASK-1"
-                status={'In Progress'}
-                taskId="i1"
-                title="Your task title goes here"
-                assigneeId={['1', '2']}
-                relatedCommit={[
-                  {
-                    commitHash: '#easdf1234',
-                    updatedAt: 1714000000000,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1235',
-                    updatedAt: 1714334487630,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1236',
-                    updatedAt: 1714334400000,
-                    link: '#'
-                  }
-                ]}
-                description="Your task description goes here"
-              />
-              <TaskCard
-                issueKey="TASK-1"
-                status={'In Progress'}
-                taskId="i1"
-                title="Your task title goes here"
-                assigneeId={['1', '2']}
-                relatedCommit={[
-                  {
-                    commitHash: '#easdf1234',
-                    updatedAt: 1714000000000,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1235',
-                    updatedAt: 1714334487630,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1236',
-                    updatedAt: 1714334400000,
-                    link: '#'
-                  }
-                ]}
-                description="Your task description goes here"
-              />
-              <TaskCard
-                issueKey="TASK-1"
-                status={'In Progress'}
-                taskId="i1"
-                title="Your task title goes here"
-                assigneeId={['1', '2']}
-                relatedCommit={[
-                  {
-                    commitHash: '#easdf1234',
-                    updatedAt: 1714000000000,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1235',
-                    updatedAt: 1714334487630,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1236',
-                    updatedAt: 1714334400000,
-                    link: '#'
-                  }
-                ]}
-                description="Your task description goes here"
-              />
-              <TaskCard
-                issueKey="TASK-1"
-                status={'In Progress'}
-                taskId="i1"
-                title="Your task title goes here"
-                assigneeId={['1', '2']}
-                relatedCommit={[
-                  {
-                    commitHash: '#easdf1234',
-                    updatedAt: 1714000000000,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1235',
-                    updatedAt: 1714334487630,
-                    link: '#'
-                  },
-                  {
-                    commitHash: '#easdf1236',
-                    updatedAt: 1714334400000,
-                    link: '#'
-                  }
-                ]}
-                description="Your task description goes here"
-              />
-              <TaskCard
-                issueKey="TASK-1"
-                status={'In Progress'}
-                taskId="i1"
-                title="Your task title goes here"
-                assigneeId={['1', '2']}
+                assigneeId={['uid1', 'uid2']}
                 relatedCommit={[
                   {
                     commitHash: '#easdf1234',

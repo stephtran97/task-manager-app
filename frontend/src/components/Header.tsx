@@ -154,6 +154,40 @@ const Task = ({ title, issueKey }: { title: string; issueKey: string }) => {
   );
 };
 
+const Board = () => {
+  const { name } = useAppSelector(projectSelector);
+  return (
+    <button className="w-full h-[52px] py-[8px] px-[16px] hover:bg-[#f4f5f7] flex items-center gap-[12px]">
+      <div className="text-[#172b4d]">
+        <Icons.BoardIcon />
+      </div>
+      <div className="w-full flex text-start flex-col ">
+        <span className="block text-[#172b4d] overflow-hidden whitespace-nowrap text-ellipsis">
+          Kanban board Task manager app
+        </span>
+        <div className="text-[12px] text-[#626f86]">in {name}</div>
+      </div>
+    </button>
+  );
+};
+
+const Project = () => {
+  const { name, key, type } = useAppSelector(projectSelector);
+  return (
+    <button className="w-full h-[52px] py-[8px] px-[16px] hover:bg-[#f4f5f7] flex items-center gap-[12px]">
+      <div>
+        <Icons.ProjectAvatarSupport />
+      </div>
+      <div className="w-full flex text-start flex-col ">
+        <span className="block text-[#172b4d] overflow-hidden whitespace-nowrap text-ellipsis">
+          {`${name} (${key})`}
+        </span>
+        <div className="text-[12px] text-[#626f86]">{type}</div>
+      </div>
+    </button>
+  );
+};
+
 const YourWorkPopOverMenu = () => {
   const [menu, setMenu] = useState<EYourWorkMenus>(
     EYourWorkMenus.ASSIGNED_TO_ME
@@ -162,13 +196,15 @@ const YourWorkPopOverMenu = () => {
     const content = {
       [EYourWorkMenus.ASSIGNED_TO_ME]: (
         <>
-          <div>
+          <div className="max-h-[calc(80dvh_-_54px)] overflow-auto">
             <h2 className={popOverMenuTitleStyle}>IN PROGRESS</h2>
             {/* TODO: Filter task - assigned to me && status = inprogress */}
             <Task title="Header - UI" issueKey="KAN-5" />
           </div>
           <div className="py-[6px] border-t-[2px]">
-            <button className={popOverButtonStyle}>Go to Your Work Page</button>
+            <Link to="" className={popOverButtonStyle}>
+              Go to Your Work Page
+            </Link>
           </div>
         </>
       ),
@@ -176,10 +212,14 @@ const YourWorkPopOverMenu = () => {
         <>
           <div>
             <h2 className={popOverMenuTitleStyle}>WORKED ON</h2>
+            <Task title="Header - UI" issueKey="KAN-5" />
             <h2 className={popOverMenuTitleStyle}>VIEWED</h2>
+            <Task title="Header - UI" issueKey="KAN-5" />
           </div>
           <div className="py-[6px] border-t-[2px]">
-            <button className={popOverButtonStyle}>Go to Your Work Page</button>
+            <Link to="" className={popOverButtonStyle}>
+              Go to Your Work Page
+            </Link>
           </div>
         </>
       ),
@@ -187,9 +227,12 @@ const YourWorkPopOverMenu = () => {
         <>
           <div>
             <h2 className={popOverMenuTitleStyle}>RECENT</h2>
+            <Board />
           </div>
           <div className="py-[6px] border-t-[2px]">
-            <button className={popOverButtonStyle}>View all boards</button>
+            <Link to="" className={popOverButtonStyle}>
+              View all boards
+            </Link>
           </div>
         </>
       )
@@ -226,22 +269,186 @@ const YourWorkPopOverMenu = () => {
   );
 };
 const ProjectsPopOverMenu = () => {
-  return <PopOverContentWrapper>...</PopOverContentWrapper>;
+  return (
+    <PopOverContentWrapper className="min-w-[320px] max-w-[800px]">
+      <div className="py-[6px] border-b-[2px]">
+        <h2 className={popOverMenuTitleStyle}>RECENT</h2>
+        <Project />
+      </div>
+      <div className="py-[6px] border-b-[2px]">
+        <h2 className={popOverMenuTitleStyle}>RECOMMENDED</h2>
+        <Project />
+      </div>
+      <div className="py-[6px]">
+        <Link to="" className={popOverButtonStyle}>
+          View all projects
+        </Link>
+        <Link to="" className={popOverButtonStyle}>
+          Create project
+        </Link>
+      </div>
+    </PopOverContentWrapper>
+  );
 };
 const FiltersPopOverMenu = () => {
-  return <PopOverContentWrapper>...</PopOverContentWrapper>;
+  return (
+    <PopOverContentWrapper className="w-[320px] text-center">
+      <div className="border-b-[2px] flex flex-col items-center p-[20px]">
+        <img
+          src="https://jira-frontend-bifrost.prod-east.frontend.public.atl-paas.net/assets/filter-empty.4c92f05b.svg"
+          alt=""
+        />
+        <p>Search for issues across all projects and save them as filters.</p>
+        <Link to="" className="text-[#0c66e4] hover:underline">
+          Learn more
+        </Link>
+      </div>
+      <div className="py-[6px]">
+        <Link className={popOverButtonStyle} to="">
+          View all filters
+        </Link>
+        <Link className={popOverButtonStyle} to="">
+          View all issues
+        </Link>
+      </div>
+    </PopOverContentWrapper>
+  );
 };
 const DashboardsPopOverMenu = () => {
-  return <PopOverContentWrapper>...</PopOverContentWrapper>;
+  return (
+    <PopOverContentWrapper className="w-[320px] text-center">
+      <div className="border-b-[2px] flex flex-col items-center p-[20px]">
+        <img
+          src="https://jira-frontend-bifrost.prod-east.frontend.public.atl-paas.net/assets/dashboards-empty.ed2e5362.svg"
+          alt=""
+        />
+        <p>Create a dashboard to track the status of your projects.</p>
+        <Link to="" className="text-[#0c66e4] hover:underline">
+          More about dashboards
+        </Link>
+      </div>
+      <div className="py-[6px]">
+        <Link className={popOverButtonStyle} to="">
+          View all dashboards
+        </Link>
+        <Link className={popOverButtonStyle} to="">
+          Create dashboard
+        </Link>
+      </div>
+    </PopOverContentWrapper>
+  );
 };
 const TeamsPopOverMenu = () => {
-  return <PopOverContentWrapper>...</PopOverContentWrapper>;
+  return (
+    <PopOverContentWrapper className="min-w-[320px] max-w-[800px]">
+      <div className="border-b-[2px] py-[6px]">
+        <Link className={popOverButtonStyle} to="">
+          <span>
+            <Icons.PlusIcon />
+          </span>
+          <span>Invite people to Jira</span>
+        </Link>
+        <Link className={popOverButtonStyle} to="">
+          <span>
+            <Icons.CreateTeamIcon />
+          </span>
+          <span>Create a team</span>
+        </Link>
+      </div>
+      <div className="py-[6px]">
+        <Link className={popOverButtonStyle} to="">
+          Search people and teams
+        </Link>
+      </div>
+    </PopOverContentWrapper>
+  );
 };
 const PlansPopOverMenu = () => {
-  return <PopOverContentWrapper>...</PopOverContentWrapper>;
+  return (
+    <PopOverContentWrapper className="w-[320px]">
+      <img
+        src="https://jira-frontend-bifrost.prod-east.frontend.public.atl-paas.net/assets/plans-standard-light.fde35b0d.svg"
+        alt=""
+      />
+      <div className="p-[24px]">
+        <div className="text-[#172b4d] pb-[24px]">
+          <h2 className="font-[600]">Unlock advanced planning tools</h2>
+          <p>
+            Boost agility with capacity planning, dependency mapping, and more.
+            Try Jira Premium's high-level cross-team planning tools.
+          </p>
+        </div>
+        <div className="flex items-center justify-end gap-[20px]">
+          <Link to="" className="text-[#0c66e4] hover:underline font-bold">
+            Read the guide
+          </Link>
+          <Link
+            to=""
+            className="flex py-[6px] px-[12px] gap-[4px] rounded-[3px] text-white font-bold bg-gradient-to-r from-[#6E5DC6] to-[#0C66E4]"
+          >
+            <span>
+              <Icons.JiraPremiumIcon />
+            </span>
+            <span>Try it free</span>
+          </Link>
+        </div>
+      </div>
+    </PopOverContentWrapper>
+  );
 };
 const AppsPopOverMenu = () => {
-  return <PopOverContentWrapper>...</PopOverContentWrapper>;
+  return (
+    <PopOverContentWrapper className="w-[320px]">
+      <div className="border-b-[2px] py-[6px]">
+        <h2 className={popOverMenuTitleStyle}>RECOMMENDED FOR YOUR TEAM</h2>
+        <p className="text-[11px] text-[#626f86] py-[4px] px-[20px]">
+          Ship faster with marketplace apps that integrate your team&#39;s tools
+          with Jira.
+        </p>
+        <Link className={popOverButtonStyle} to="">
+          <span>
+            <img
+              src="https://jira-frontend-bifrost.prod-east.frontend.public.atl-paas.net/assets/slack.b2145b58.png"
+              alt=""
+              className="size-[24px]"
+            />
+          </span>
+          <span>Slack</span>
+        </Link>
+        <Link className={popOverButtonStyle} to="">
+          <span>
+            <img
+              src="https://jira-frontend-bifrost.prod-east.frontend.public.atl-paas.net/assets/powerBI.6fbcc628.png"
+              alt=""
+              className="size-[24px]"
+            />
+          </span>
+          <span>Power BI (Analytics)</span>
+        </Link>
+        <Link className={popOverButtonStyle} to="">
+          <span>
+            <img
+              src="https://jira-frontend-bifrost.prod-east.frontend.public.atl-paas.net/assets/atlasCMR.1b2080b0.png"
+              alt=""
+              className="size-[24px]"
+            />
+          </span>
+          <span>Power BI (Project Management)</span>
+        </Link>
+      </div>
+      <div className="py-[6px]">
+        <Link className={popOverButtonStyle} to="">
+          Explore more apps
+        </Link>
+        <Link className={popOverButtonStyle} to="">
+          Manage your apps
+        </Link>
+        <Link className={popOverButtonStyle} to="">
+          View app requests
+        </Link>
+      </div>
+    </PopOverContentWrapper>
+  );
 };
 
 const Header = () => {
@@ -254,7 +461,7 @@ const Header = () => {
           <PopOver
             buttonTitle={<Icons.MenuIcon />}
             content={<YourAppsPopOverMenu />}
-            arrow={false}
+            buttonArrow={false}
             buttonClassName="rounded-full"
           />
         </Tooltip>
@@ -283,7 +490,7 @@ const Header = () => {
               <PopOver
                 buttonTitle={button.title}
                 content={button.content}
-                arrow={true}
+                arrow={false}
                 placement="bottom-start"
               />
             </div>
@@ -321,7 +528,7 @@ const Header = () => {
           <PopOver
             buttonTitle={<Icons.NotificationIcon />}
             content={<>...</>}
-            arrow={false}
+            buttonArrow={false}
             buttonClassName="rounded-full"
           />
         </Tooltip>
@@ -329,7 +536,7 @@ const Header = () => {
           <PopOver
             buttonTitle={<Icons.HelpIcon />}
             content={<>...</>}
-            arrow={false}
+            buttonArrow={false}
             buttonClassName="fill-white rounded-full"
           />
         </Tooltip>
@@ -337,7 +544,7 @@ const Header = () => {
           <PopOver
             buttonTitle={<Icons.SettingsIcon />}
             content={<>...</>}
-            arrow={false}
+            buttonArrow={false}
             buttonClassName="rounded-full"
           />
         </Tooltip>
@@ -352,7 +559,7 @@ const Header = () => {
               </div>
             }
             content={<>...</>}
-            arrow={false}
+            buttonArrow={false}
             buttonClassName="rounded-full"
           />
         </Tooltip>

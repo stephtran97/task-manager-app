@@ -31,8 +31,8 @@ export interface ITask {
   status: 'Done' | 'In Progress' | 'To Do';
   dueDate: number;
   assigneeId: IUser['userId'][];
-  createBy: string;
-  createAt: number;
+  createdBy: string;
+  createdAt: number;
   updatedAt: number;
   issueLink: string;
   relatedCommit: ICommit[];

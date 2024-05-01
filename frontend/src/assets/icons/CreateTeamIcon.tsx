@@ -2,10 +2,7 @@ import React from 'react';
 
 const CreateTeamIcon = () => {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      style={{ color: 'currentcolor', fill: 'var(--ds-surface, #FFFFFF)' }}
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24">
       <path
         d="M17.25 7.5C17.25 7.08579 16.9142 6.75 16.5 6.75C16.0858 6.75 15.75 7.08579 15.75 7.5V10.5C15.75 10.9142 16.0858 11.25 16.5 11.25C16.9142 11.25 17.25 10.9142 17.25 10.5V7.5Z"
         fill="currentColor"
