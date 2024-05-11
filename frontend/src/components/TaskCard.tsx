@@ -1,31 +1,18 @@
 import React, { useState } from 'react';
 
+import ReactTextareaAutosize from 'react-textarea-autosize';
 import { Link, useNavigate } from 'react-router-dom';
 
-import Tooltip from './Tooltip';
-import * as Icons from '../assets/icons';
-import PopOverContentWrapper from './PopOverContentWrapper';
-import ReactTextareaAutosize from 'react-textarea-autosize';
-import { useAppSelector } from '../hooks/hooks';
-import { projectSelector } from '../redux/slices/project.slice';
-import { ICommit } from '../models/types';
 import { convertTimeToDHMS, getCurrentTime } from '../utils/helper';
+import { projectSelector } from '../redux/slices/project.slice';
+import PopOverContentWrapper from './PopOverContentWrapper';
+import { useAppSelector } from '../hooks/hooks';
+import * as Icons from '../assets/icons';
+import { ITask } from '../models/types';
+import Tooltip from './Tooltip';
 import PopOver from './PopOver';
 
-interface ITaskCardProps {
-  taskId: string;
-  issueKey: string;
-  title: string;
-  description?: string;
-  status: 'Done' | 'In Progress' | 'To Do';
-  dueDate?: number;
-  assigneeId?: string[] | undefined; // TODO: convert to user model later
-  createBy?: string; // TODO: convert to user model later
-  createAt?: number;
-  updatedAt?: number;
-  issueLink?: string;
-  relatedCommit?: ICommit[] | undefined;
-}
+type ITaskCardProps = Partial<ITask>;
 
 const TaskCardPopOverContent = (): JSX.Element => {
   const style = 'w-full cursor-default px-[20px] py-[8px] hover:bg-[#f3f5f7]';
@@ -190,7 +177,7 @@ const TaskCard = (props: ITaskCardProps) => {
                     <img
                       src={item.avatar}
                       alt={item.userName}
-                      className="relative size-[32px] rounded-full object-cover hover:z-2 hover:ring-[2px] ring-white"
+                      className="relative size-[28px] rounded-full object-cover hover:z-[2] hover:ring-[2px] ring-white"
                     />
                   </Tooltip>
                 );

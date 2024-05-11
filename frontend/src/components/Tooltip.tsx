@@ -7,6 +7,11 @@ const Tooltip = (props: TooltipProps) => {
   return (
     <UITooltip
       content={<span className="text-[12px]">{props.content}</span>}
+      theme={{
+        style: {
+          dark: 'py-0 px-[8px] bg-[#172b4d] text-white font-[400] rounded-[3px]'
+        }
+      }}
       {...rest}
     >
       {props.children}
