@@ -28,6 +28,7 @@ export { default as ExitIcon } from './ExitIcon';
 export { default as FeedbackIcon } from './FeedbackIcon';
 export { default as FilterIcon } from './FilterIcon';
 export { default as FullScreenIcon } from './FullScreenIcon';
+export { default as FlagIcon } from './FlagIcon';
 export { default as GlobeIcon } from './GlobeIcon';
 export { default as GoalIcon } from './GoalIcon';
 export { default as GroupViewIcon } from './GroupViewIcon';

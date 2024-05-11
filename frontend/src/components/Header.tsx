@@ -8,11 +8,16 @@ import PopOver from './PopOver';
 import Tooltip from './Tooltip';
 import { useAppSelector } from '../hooks/hooks';
 import { projectSelector } from '../redux/slices/project.slice';
+import ToggleSwitch from './ToggleSwitch';
 
 enum EYourWorkMenus {
   ASSIGNED_TO_ME = 'Assigned to me',
   RECENT = 'Recent',
   BOARDS = 'Boards'
+}
+enum ENotificationsMenus {
+  DIRECT = 'Direct',
+  WATCHING = 'Watching'
 }
 const popOverMenuTitleStyle =
   'font-bold mt-[16px] mb-[4px] ms-[16px] text-[11px]';
@@ -450,6 +455,122 @@ const AppsPopOverMenu = () => {
     </PopOverContentWrapper>
   );
 };
+const NotificationsPopOverMenu = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const [menu, setMenu] = useState<ENotificationsMenus>(
+    ENotificationsMenus.DIRECT
+  );
+  const getMenuContent = (menu: ENotificationsMenus) => {
+    const content = {
+      [ENotificationsMenus.DIRECT]: (
+        <div className="flex flex-col items-center pt-[20px] pb-[44px]">
+          <div>
+            <Icons.FlagIcon />
+          </div>
+          <div className="text-center w-[225px]">
+            You have no notifications from the last 30 days.
+          </div>
+        </div>
+      ),
+      [ENotificationsMenus.WATCHING]: (
+        <div className="flex flex-col items-center pt-[20px] pb-[44px]">
+          <div>
+            <Icons.FlagIcon />
+          </div>
+          <div className="text-center w-[225px]">
+            You have no notifications from the last 30 days.
+          </div>
+        </div>
+      )
+    };
+    return content[menu];
+  };
+  return (
+    <PopOverContentWrapper className="h-[calc(80dvh_-_54px)] w-[540px] overflow-auto text-[#172b4d] flex flex-col items-center px-[18px]">
+      <header className="w-full py-[24px] flex items-center">
+        <h2 className="text-[#172b4d] text-[24px] font-[600]">Notifications</h2>
+        <div className="ms-auto flex items-center gap-[8px]">
+          <ToggleSwitch
+            label="Only show unread"
+            labelClassName="me-[4px]"
+            isChecked={isChecked}
+            onChange={setIsChecked}
+          />
+          <Tooltip content="Open in a new tab" arrow={false} placement="bottom">
+            <div className="flex items-center justify-center size-[32px] hover:bg-[var(--color-hover-secondary)] rounded-[3px] cursor-pointer">
+              <Icons.NewTabIcon />
+            </div>
+          </Tooltip>
+          <PopOver
+            content={
+              <div className="w-[180px] py-[6px]">
+                <div className={`${popOverButtonStyle} cursor-pointer`}>
+                  <span>
+                    <Icons.ListIcon />
+                  </span>
+                  <span>Switch to list view</span>
+                </div>
+                <div className={`${popOverButtonStyle} cursor-pointer`}>
+                  <span>
+                    <Icons.FeedbackIcon />
+                  </span>
+                  <span>Give feedback</span>
+                </div>
+              </div>
+            }
+            buttonContent={
+              <div className="flex items-center justify-center size-[32px] hover:bg-[var(--color-hover-secondary)] rounded-[3px] cursor-pointer">
+                <Icons.DotsMenuIcon />
+              </div>
+            }
+            buttonArrow={false}
+            placement="bottom-end"
+          />
+        </div>
+      </header>
+      <div className="flex w-full border-b-[#ebecf0] border-b-[2px]">
+        {[ENotificationsMenus.DIRECT, ENotificationsMenus.WATCHING].map(
+          (button, i) => {
+            const className =
+              button === menu
+                ? 'px-[8px] py-[4px] text-[#0c66e4] font-[600] shadow-[0px_2px_0px_0px_#0c66e4]'
+                : 'px-[8px] py-[4px] text-[#44546f] font-[600] hover:shadow-[0px_2px_0px_0px_var(--color-hover-secondary)]';
+            return (
+              <button
+                className={className}
+                key={i}
+                onClick={() => setMenu(button)}
+              >
+                {button}
+              </button>
+            );
+          }
+        )}
+      </div>
+      {getMenuContent(menu)}
+      <div className="w-[475px] p-[16px] border-[1px] rounded-[3px] mt-auto mb-[25px] flex">
+        <span className="font-bold me-[4px]">Pro tip:</span>
+        <span>press</span>
+        <span className="size-[24px]">
+          <Icons.ArrowUp />
+        </span>
+        <span className="size-[24px]">
+          <Icons.ArrowDown />
+        </span>
+        <span>to move through notifications.</span>
+        <Link to="" className="ms-[4px] text-[#0c66e4] hover:underline">
+          See all shortcuts
+        </Link>
+      </div>
+    </PopOverContentWrapper>
+  );
+};
+const HelpPopOverMenu = () => {
+  return <>HelpPopOverMenu</>;
+};
+const SettingsPopOverMenu = () => {
+  return <>SettingsPopOverMenu</>;
+};
 
 const Header = () => {
   return (
@@ -527,25 +648,28 @@ const Header = () => {
         <Tooltip content="Notifications" arrow={false}>
           <PopOver
             buttonTitle={<Icons.NotificationIcon />}
-            content={<>...</>}
+            content={<NotificationsPopOverMenu />}
             buttonArrow={false}
             buttonClassName="rounded-full"
+            placement="bottom-end"
           />
         </Tooltip>
         <Tooltip content="Help" arrow={false}>
           <PopOver
             buttonTitle={<Icons.HelpIcon />}
-            content={<>...</>}
+            content={<HelpPopOverMenu />}
             buttonArrow={false}
             buttonClassName="fill-white rounded-full"
+            placement="bottom-end"
           />
         </Tooltip>
         <Tooltip content="Settings" arrow={false}>
           <PopOver
             buttonTitle={<Icons.SettingsIcon />}
-            content={<>...</>}
+            content={<SettingsPopOverMenu />}
             buttonArrow={false}
             buttonClassName="rounded-full"
+            placement="bottom-end"
           />
         </Tooltip>
         <Tooltip content="Your profile and settings" arrow={false}>
@@ -561,6 +685,7 @@ const Header = () => {
             content={<>...</>}
             buttonArrow={false}
             buttonClassName="rounded-full"
+            placement="bottom-end"
           />
         </Tooltip>
       </div>

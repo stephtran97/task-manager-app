@@ -75,6 +75,7 @@ const DevPage = () => {
               <Icons.FeedbackIcon />
               <Icons.FilterIcon />
               <Icons.FullScreenIcon />
+              <Icons.FlagIcon />
             </div>
           </div>
           <div className="flex flex-col">
